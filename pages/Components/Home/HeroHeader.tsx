@@ -3,8 +3,8 @@ import React from "react";
 const HeroHeader = () => {
   return (
     <div className="container grid grid-cols-1 md:grid-cols-3  mx-auto">
-      <div className="px-6 pt-9 xl:pt-32 md:text-left max-w-xl mx-auto md:col-span-2">
-        <h1 className="text-6xl md:text-7xl lg:text-6xl xl:text-6xl font-semibold">
+      <div className="px-16 pt-9 xl:pt-32 md:text-left max-w-xl  md:col-span-2 mx-auto">
+        <h1 className="text-6xl md:text-7xl lg:text-6xl xl:text-7xl font-semibold">
           Learn without limits
         </h1>
         <p className="text-xl md:text-2xl mt-6 mb-6">
