@@ -22,7 +22,7 @@ const HeroHeader = () => {
           </button>
         </div>
       </div>
-      <div className="hidden md:block mx-auto pt-9 xl:pt-32 ">
+      <div className="hidden md:block ml-0 pt-9 xl:pt-32 ">
         <img
           className=" md:object-scale-down h-48 w-96 xl:h-62 xl:w-auto"
           src="/images/hero-header.png"
