@@ -1,4 +1,5 @@
 import React from "react";
+import CoursesList from "../Courses/CoursesList";
 import CourseCard from "./CourseCard";
 // import Caroussel from './Caroussel'
 
@@ -18,7 +19,9 @@ const HeroCourses = () => {
 
       {/* //TODO: Here we have to add the caroussel once we have more courses */}
       {/* <Caroussel/> */}
-      <CourseCard />
+
+      {/* <CourseCard /> */}
+      <CoursesList/>
     </div>
   );
 };

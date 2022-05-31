@@ -2,7 +2,6 @@ import React from "react";
 import checkImage from "../../../public/check.svg";
 
 const ContentMenu = () => {
-  console.log(checkImage)
   const mockData = [
     {
       title: "Seccion 1",

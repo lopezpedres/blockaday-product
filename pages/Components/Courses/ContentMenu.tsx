@@ -1,7 +1,14 @@
 import React from "react";
 import ContentMenu from "./MainContent";
+import {GetServerSideProps, InferGetServerSidePropsType} from 'next'
+import fetch from "isomorphic-fetch"
 
-const MainContent = () => {
+type ModuleProps = {
+  courseSlug: string;
+  moduleId: string;
+}
+const MainContent = ({course}:InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  console.log(course)
   return (
     <div className="col-span-4 ">
       <div className="max-w-3xl mx-auto">
@@ -34,3 +41,12 @@ const MainContent = () => {
 };
 
 export default MainContent;
+
+export const getServerSideProps: GetServerSideProps = async ({params}) =>{
+  const course = await fetch(`http://localhost:3000/api/courses/${params?.courseSlug}`).then(res => res.json())
+  return {
+    props: {
+      course
+    },
+  };
+}
