@@ -14,7 +14,8 @@ type CourseProps = {
 const CourseCard = ({courseMeta}:CourseProps) => {
 
   return (
-    <div className="pt-1 m-2 w-64 h-auto hover:shadow-2xl shadow bg-[#00255d] ">
+    <div>
+    {courseMeta && <div className="pt-1 m-2 w-64 h-auto hover:shadow-2xl shadow bg-[#00255d] ">
       <Link href={`/courses/${courseMeta.courseSlug}/module/1`}>
         <a>
           <div className="relative">
@@ -33,6 +34,7 @@ const CourseCard = ({courseMeta}:CourseProps) => {
           </div>
         </a>
       </Link>
+    </div>}
     </div>
   );
 };

@@ -3,13 +3,26 @@ import React from "react";
 import logo from "../../../public/images/hero-header.png";
 import { useRouter } from "next/router";
 
-const SideMenu = () => {
-  type moduleType={
-    id:number,
-    name:string,
-  }
-  const modules:moduleType [] = [{name:"Module 1", id:1}, {name:"Module 2", id:2}, {name:"Module 3", id:3}];
-  const router = useRouter();
+interface MockData {
+  data: Data;
+}
+
+interface Data {
+  name: string;
+  courseSlug: string;
+  content?: (ContentEntity)[] | null;
+}
+ interface ContentEntity {
+  module: number;
+  title: string;
+  overview: string;
+  objectives?: (string)[] | null;
+}
+
+const SideMenu = ({data}:{data:MockData}) => {
+  const {data:course} = data
+  const router = useRouter()
+  const modules = course.content
 
   return (
     <nav className="col-span-1 overflow-auto">
@@ -18,10 +31,10 @@ const SideMenu = () => {
         <li className="text-lg font-bold p-2 border-l-4 border-blue-600">
           Summary
         </li>
-        {modules.map((module) => (
-          <li key={module.id} className="pl-8 py-2 my-2 hover:bg-gray-100 rounded-sm">
-            <Link href={`/courses/${router.query.courseSlug}/module/${module.id}`} >
-              <a>{module.name}</a>
+        {modules?.map((module) => (
+          <li key={module.module} className="pl-8 py-2 my-2 hover:bg-gray-100 rounded-sm">
+            <Link href={`/courses/${router.query.courseSlug}/module/${module.module}`} >
+              <a>{module.title}</a>
             </Link>
           </li>
         ))}

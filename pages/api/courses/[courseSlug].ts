@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import dataCourses from "../../data.js";
 
 interface OneCourse {
   data?: CourseInterface;
@@ -10,69 +11,24 @@ type CourseType = {
   title: string;
   overview: string;
   objectives: string[];
+  sections?: CourseSection[];
 };
 interface CourseInterface {
   name: string;
   courseSlug: string;
   content: CourseType[];
 }
+interface CourseSection {
+  title: string;
+  content: CourseSectionContent[];
+}
+interface CourseSectionContent {
+  type: string;
+  name: string;
+  slug: string;
+}
 
-const courses: CourseInterface[] = [
-  {
-    name: "Basics of Crypto",
-    courseSlug: "basics-crypto",
-    content: [
-      {
-        module: 1,
-        title: "Basics of Crypto - Module 1",
-        overview:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phaselluseget nisl velit. Etiam euismod, ipsum eget consectetur consectetur,nisi nisl tincidunt nisi, eget",
-        objectives: ["Objective 1", "Objective 2", "Objective 3"],
-      },
-      {
-        module: 2,
-        title: "Basics of Crypto - Module 2",
-        overview:
-          "Learn the basics of blockchain and how to use it to your advantage",
-        objectives: ["Objective 1", "Objective 2", "Objective 3"],
-      },
-      {
-        module: 3,
-        title: "Basics of Crypto - Module 3",
-        overview:
-          "Learn the basics of blockchain and how to use it to your advantage",
-        objectives: ["Objective 1", "Objective 2", "Objective 3"],
-      },
-    ],
-  },
-  {
-    name: "Basics of Blockchain",
-    courseSlug: "basics-blockchain",
-    content: [
-      {
-        module: 1,
-        title: "Basics of Blockchain - Module 1",
-        overview:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phaselluseget nisl velit. Etiam euismod, ipsum eget consectetur consectetur,nisi nisl tincidunt nisi, eget",
-        objectives: ["Objective 1", "Objective 2", "Objective 3"],
-      },
-      {
-        module: 2,
-        title: "Basics of Blockchain - Module 2",
-        overview:
-          "Learn the basics of blockchain and how to use it to your advantage",
-        objectives: ["Objective 1", "Objective 2", "Objective 3"],
-      },
-      {
-        module: 3,
-        title: "Basics of Blockchain - Module 3",
-        overview:
-          "Learn the basics of blockchain and how to use it to your advantage",
-        objectives: ["Objective 1", "Objective 2", "Objective 3"],
-      },
-    ],
-  },
-];
+const courses: CourseInterface[] = dataCourses;
 
 const getCourse = (courseQuery: string) =>
   courses.find((course: CourseInterface) => course.courseSlug === courseQuery);
