@@ -14,12 +14,12 @@ const courses= [
               title: "Section 1",
               content: [
                 {
-                  type: "video",
+                  type: "videos",
                   name: "Video 1",
                   slug: "video-1",
                 },
                 {
-                  type: "quiz",
+                  type: "quizzes",
                   name: "Quiz 1",
                   slug: "quiz-1",
                 },
@@ -29,12 +29,12 @@ const courses= [
               title: "Section 2",
               content: [
                 {
-                  type: "video",
+                  type: "videos",
                   name: "Video 2",
                   slug: "video-2",
                 },
                 {
-                  type: "quiz",
+                  type: "quizzes",
                   name: "Quiz 2",
                   slug: "quiz-2",
                 },
@@ -44,7 +44,7 @@ const courses= [
               title: "Section 3",
               content: [
                 {
-                  type: "Lecture",
+                  type: "lectures",
                   name: "Lecture 1",
                   slug: "lecture-1",
                 },
@@ -63,12 +63,12 @@ const courses= [
               title: "Section 1",
               content: [
                 {
-                  type: "video",
+                  type: "videos",
                   name: "Video 1",
                   slug: "video-1",
                 },
                 {
-                  type: "quiz",
+                  type: "quizzes",
                   name: "Quiz 1",
                   slug: "quiz-1",
                 },
@@ -78,12 +78,12 @@ const courses= [
               title: "Section 2",
               content: [
                 {
-                  type: "video",
+                  type: "videos",
                   name: "Video 2",
                   slug: "video-2",
                 },
                 {
-                  type: "quiz",
+                  type: "quizzes",
                   name: "Quiz 2",
                   slug: "quiz-2",
                 },
@@ -93,7 +93,7 @@ const courses= [
               title: "Section 3",
               content: [
                 {
-                  type: "Lecture",
+                  type: "lectures",
                   name: "Lecture 1",
                   slug: "lecture-1",
                 },
@@ -112,12 +112,12 @@ const courses= [
               title: "Section 1",
               content: [
                 {
-                  type: "video",
+                  type: "videos",
                   name: "Video 1",
                   slug: "video-1",
                 },
                 {
-                  type: "quiz",
+                  type: "quizzes",
                   name: "Quiz 1",
                   slug: "quiz-1",
                 },
@@ -127,12 +127,12 @@ const courses= [
               title: "Section 2",
               content: [
                 {
-                  type: "video",
+                  type: "videos",
                   name: "Video 2",
                   slug: "video-2",
                 },
                 {
-                  type: "quiz",
+                  type: "quizzes",
                   name: "Quiz 2",
                   slug: "quiz-2",
                 },
@@ -142,7 +142,7 @@ const courses= [
               title: "Section 3",
               content: [
                 {
-                  type: "Lecture",
+                  type: "lectures",
                   name: "Lecture 1",
                   slug: "lecture-1",
                 },
@@ -167,12 +167,12 @@ const courses= [
               title: "Section 1",
               content: [
                 {
-                  type: "video",
+                  type: "videos",
                   name: "Video 1",
                   slug: "video-1",
                 },
                 {
-                  type: "quiz",
+                  type: "quizzes",
                   name: "Quiz 1",
                   slug: "quiz-1",
                 },
@@ -182,12 +182,12 @@ const courses= [
               title: "Section 2",
               content: [
                 {
-                  type: "video",
+                  type: "videos",
                   name: "Video 2",
                   slug: "video-2",
                 },
                 {
-                  type: "quiz",
+                  type: "quizzes",
                   name: "Quiz 2",
                   slug: "quiz-2",
                 },
@@ -197,7 +197,7 @@ const courses= [
               title: "Section 3",
               content: [
                 {
-                  type: "Lecture",
+                  type: "lectures",
                   name: "Lecture 1",
                   slug: "lecture-1",
                 },
@@ -216,12 +216,12 @@ const courses= [
               title: "Section 1",
               content: [
                 {
-                  type: "video",
+                  type: "videos",
                   name: "Video 1",
                   slug: "video-1",
                 },
                 {
-                  type: "quiz",
+                  type: "quizzes",
                   name: "Quiz 1",
                   slug: "quiz-1",
                 },
@@ -231,12 +231,12 @@ const courses= [
               title: "Section 2",
               content: [
                 {
-                  type: "video",
+                  type: "videos",
                   name: "Video 2",
                   slug: "video-2",
                 },
                 {
-                  type: "quiz",
+                  type: "quizzes",
                   name: "Quiz 2",
                   slug: "quiz-2",
                 },
@@ -246,7 +246,7 @@ const courses= [
               title: "Section 3",
               content: [
                 {
-                  type: "Lecture",
+                  type: "lectures",
                   name: "Lecture 1",
                   slug: "lecture-1",
                 },

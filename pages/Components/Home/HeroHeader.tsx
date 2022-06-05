@@ -2,8 +2,8 @@ import React from "react";
 
 const HeroHeader = () => {
   return (
-    <div className="container grid grid-cols-1 md:grid-cols-3  mx-auto">
-      <div className="px-16 pt-9 xl:pt-32 md:text-left max-w-xl  md:col-span-2 mx-auto">
+    <div className="container grid grid-cols-1 lg:grid-cols-3  mx-auto">
+      <div className=" pt-9 xl:pt-32 md:text-left max-w-2xl  lg:col-span-2 mx-auto">
         <h1 className="text-6xl md:text-7xl lg:text-6xl xl:text-7xl font-semibold">
           Learn without limits
         </h1>
@@ -22,7 +22,7 @@ const HeroHeader = () => {
           </button>
         </div>
       </div>
-      <div className="hidden md:block ml-0 pt-9 xl:pt-32 ">
+      <div className="hidden lg:block ml-0 pt-9 xl:pt-32 ">
         <img
           className=" md:object-scale-down h-48 w-96 xl:h-62 xl:w-auto"
           src="/images/hero-header.png"

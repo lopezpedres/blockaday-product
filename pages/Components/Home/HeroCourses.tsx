@@ -5,7 +5,7 @@ import CourseCard from "./CourseCard";
 
 const HeroCourses = () => {
   return (
-    <div className="container w-full mx-auto px-20">
+    <div className="container w-full mx-auto ">
       <div className=" pt-16">
         <h3 className="text-xl font-semibold text-[#382d8b] pb-4">
           Free Courses Available

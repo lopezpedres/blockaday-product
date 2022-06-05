@@ -35,8 +35,8 @@ const ContentMenu = ({data}:{data:MockData}) => {
   const {moduleId} = router.query
   const module = course.content?.find((item) => item.module.toString() === moduleId)
   return (
-    <div className="col-span-4 ">
-      <div className="max-w-3xl mx-auto">
+    <div className="lg:col-span-4 col-span-5  ">
+      <div className="max-w-3xl">
         <div className="p-8 mb-4">
           <h1 className="text-4xl font-bold mb-4 ">{module?.title}</h1>
           <p className="text-lg">hh</p>
