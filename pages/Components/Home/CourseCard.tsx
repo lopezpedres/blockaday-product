@@ -16,7 +16,7 @@ const CourseCard = ({courseMeta}:CourseProps) => {
   return (
     <div>
     {courseMeta && <div className="pt-1 m-2 w-64 h-auto hover:shadow-2xl shadow bg-[#00255d] ">
-      <Link href={`/courses/${courseMeta.courseSlug}/module/1`}>
+      <Link href={`/courses/${courseMeta.courseSlug}`}>
         <a>
           <div className="relative">
             <img

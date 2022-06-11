@@ -6,6 +6,7 @@ const courses= [
         {
           module: 1,
           title: "Basics of Crypto 1 ",
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phaselluseget nisl velit. Etiam euismod, ipsum eget consectetur consectetur,nisi nisl tincidunt nisi, eget',
           overview:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phaselluseget nisl velit. Etiam euismod, ipsum eget consectetur consectetur,nisi nisl tincidunt nisi, eget",
           objectives: ["Objective 1.1", "Objective 2", "Objective 3"],
