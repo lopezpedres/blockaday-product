@@ -3,7 +3,6 @@ import { useMemo } from "react";
 
 const data: Array<QuestionItem> = [
   {
-    type: "simple",
     question: "Question 1 ?",
     possibleAnswers: [
       { answer: "Answer 1", correct: false },
@@ -13,7 +12,6 @@ const data: Array<QuestionItem> = [
     ],
   },
   {
-    type: "description",
     question: "Question 2 ?",
     description: "Description of question 2",
     possibleAnswers: [
@@ -22,7 +20,6 @@ const data: Array<QuestionItem> = [
     ],
   },
   {
-    type: "simple",
     question: "Question 3 ?",
     possibleAnswers: [
       { answer: "Answer 1", correct: true },
@@ -32,67 +29,57 @@ const data: Array<QuestionItem> = [
   },
 ];
 
-interface QuestionItemBase {
-  type: "simple" | "description";
+interface QuestionItem {
   question: string;
+  description?: string;
   possibleAnswers: {
     answer: string;
     correct: boolean;
   }[];
 }
 
-interface QuestionItemSimple extends QuestionItemBase {
-  type: "simple";
-}
-
-interface QuestionItemDescription extends QuestionItemBase {
-  type: "description";
-  description: string;
-}
-
-type QuestionItem = QuestionItemSimple | QuestionItemDescription;
-
 type QuestionAnswer = {
   question: string;
   isCorrect: string;
 };
 
-
-type QuestionAnswerProps<T extends QuestionItemBase> = {
+type QuestionAnswerProps = {
   show: boolean;
-  item: T;
-  answers: QuestionAnswer[];
-  setAnswers: (answers: QuestionAnswer[]) => void;
+  question: QuestionItem;
+  answers: Record<string, QuestionAnswer>;
+  setAnswers: (answers: Record<string, QuestionAnswer>) => void;
 };
 
-const AnswerComponent = function <T extends QuestionItemBase>({
+const AnswerComponent = ({
   show,
-  item,
+  question,
   answers,
   setAnswers,
-}: QuestionAnswerProps<T>) {
+}: QuestionAnswerProps) => {
   const inputHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     console.log("all good here");
     const newValues: QuestionAnswer = {
       question: e.currentTarget.name,
       isCorrect: e.currentTarget.value,
     };
-    const a = answers || [];
-    setAnswers([...a, newValues]);
+
+    const currentIndex = data.findIndex((q) => q === question);
+    const newAnswers = { ...answers, [currentIndex]: newValues };
+    setAnswers(newAnswers);
   };
   return (
     <div className="flex flex-col pl-4">
-      {item.possibleAnswers.map((answer, index) => (
+      {question.possibleAnswers.map((answer, index) => (
         <label
           key={index}
           className={`py-2 ${
-            show && (answer.correct ? "bg-red-600" : "bg-green-600")
+            show && (answer.correct ? "bg-green-600" : "bg-red-600")
           }`}
         >
           <input
             className="scale-150 m-4 "
             type="radio"
-            name={item.question}
+            name={question.question}
             onClick={(e) => inputHandler(e)}
             value={answer.correct.toString()}
           />
@@ -103,64 +90,53 @@ const AnswerComponent = function <T extends QuestionItemBase>({
   );
 };
 
-const Scoring = function <T extends QuestionItemBase>({
-  item,
-  answers,
-  setAnswers,
+const Scoring = ({
+  question,
+  answer,
   show,
-}: QuestionAnswerProps<T>) {
-  console.log("Enters Scoring");
-  return (
-    <>
-      <AnswerComponent
-        item={item}
-        show={show}
-        answers={answers}
-        setAnswers={setAnswers}
-      />
-      {answers.map((answer: QuestionAnswer) => {
-        console.log(answer.question, "equals", item.question);
-        {
-          answer.question === item.question &&
-            (Boolean(answer.isCorrect) ? (
-              <p>This is correct</p>
-            ) : (
-              <p>this is not correct</p>
-            ));
-        }
-      })}
-    </>
-  );
+}: {
+  question: QuestionItem;
+  answer: QuestionAnswer;
+  show: boolean;
+}) => {
+  console.log("Enters Scoring", answer);
+  
+  if (answer.isCorrect === "true") {
+    return <p>This is correct</p>;
+  }
+  return <p>this is not correct</p>;
 };
 
 const CourseQuizz = () => {
   //Todo: Need to change this any type eventually
   const [show, setShow] = useState<boolean>(false);
-  const [answers, setAnswers] = useState<QuestionAnswer[]>([]);
-  
+  const [answers, setAnswers] = useState<Record<string, QuestionAnswer>>({});
+
   return (
     <div className=" ">
       <div className="max-w-3xl mx-auto p-4">
         <h1 className="text-4xl font-bold mb-4">Quizz: Module 1</h1>
-        {data.map((item, index) => {
-
+        {data.map((question, index) => {
           return (
-            <div key={item.question} className="p-8 border-2 mb-10">
+            <div key={question.question} className="p-8 border-2 mb-10">
               <div className="flex flex- wrap text-2xl font-bold pb-2">
                 <span className=" px-2">{index + 1}.</span>
-                <h2 className="">{item.question}</h2>
+                <h2 className="">{question.question}</h2>
               </div>
-              {item.type === "description" && <p>
-                {item.description}
-              </p>}
-              {show ? (
-                <Scoring item={item} answers={answers} setAnswers={setAnswers} show={show} />
-              ) : (
-                <AnswerComponent
-                  item={item}
+              {question.description && <p>{question.description}</p>}
+
+              <AnswerComponent
+                question={question}
+                show={show}
+                answers={answers}
+                setAnswers={setAnswers}
+              />
+
+              {answers[index] && show && (
+                <Scoring
+                  question={question}
+                  answer={answers[index]}
                   show={show}
-                  answers={answers}
-                  setAnswers={setAnswers}
                 />
               )}
             </div>
