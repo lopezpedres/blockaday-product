@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useMemo } from "react";
 
-const data = [
+const data: Array<QuestionItem> = [
   {
+    type: "simple",
     question: "Question 1 ?",
     possibleAnswers: [
       { answer: "Answer 1", correct: false },
@@ -12,13 +13,16 @@ const data = [
     ],
   },
   {
+    type: "description",
     question: "Question 2 ?",
+    description: "Description of question 2",
     possibleAnswers: [
       { answer: "Answer 1", correct: true },
       { answer: "Answer 2", correct: false },
     ],
   },
   {
+    type: "simple",
     question: "Question 3 ?",
     possibleAnswers: [
       { answer: "Answer 1", correct: true },
@@ -28,32 +32,45 @@ const data = [
   },
 ];
 
-type QuestionItem = {
+interface QuestionItemBase {
+  type: "simple" | "description";
   question: string;
   possibleAnswers: {
     answer: string;
     correct: boolean;
   }[];
-};
+}
+
+interface QuestionItemSimple extends QuestionItemBase {
+  type: "simple";
+}
+
+interface QuestionItemDescription extends QuestionItemBase {
+  type: "description";
+  description: string;
+}
+
+type QuestionItem = QuestionItemSimple | QuestionItemDescription;
 
 type QuestionAnswer = {
   question: string;
   isCorrect: string;
 };
 
-type QuestionAnswerProps = {
+
+type QuestionAnswerProps<T extends QuestionItemBase> = {
   show: boolean;
-  item: QuestionItem;
+  item: T;
   answers: QuestionAnswer[];
   setAnswers: (answers: QuestionAnswer[]) => void;
 };
 
-const AnswerComponent = ({
+const AnswerComponent = function <T extends QuestionItemBase>({
   show,
   item,
   answers,
   setAnswers,
-}: QuestionAnswerProps) => {
+}: QuestionAnswerProps<T>) {
   const inputHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     console.log("all good here");
     const newValues: QuestionAnswer = {
@@ -65,7 +82,6 @@ const AnswerComponent = ({
   };
   return (
     <div className="flex flex-col pl-4">
-      {/* @ts-ignore */}
       {item.possibleAnswers.map((answer, index) => (
         <label
           key={index}
@@ -86,52 +102,59 @@ const AnswerComponent = ({
     </div>
   );
 };
+
+const Scoring = function <T extends QuestionItemBase>({
+  item,
+  answers,
+  setAnswers,
+  show,
+}: QuestionAnswerProps<T>) {
+  console.log("Enters Scoring");
+  return (
+    <>
+      <AnswerComponent
+        item={item}
+        show={show}
+        answers={answers}
+        setAnswers={setAnswers}
+      />
+      {answers.map((answer: QuestionAnswer) => {
+        console.log(answer.question, "equals", item.question);
+        {
+          answer.question === item.question &&
+            (Boolean(answer.isCorrect) ? (
+              <p>This is correct</p>
+            ) : (
+              <p>this is not correct</p>
+            ));
+        }
+      })}
+    </>
+  );
+};
+
 const CourseQuizz = () => {
   //Todo: Need to change this any type eventually
   const [show, setShow] = useState<boolean>(false);
-
   const [answers, setAnswers] = useState<QuestionAnswer[]>([]);
-
-  type ScoringProps = {
-    item: QuestionItem;
-  }
-  const Scoring = ({ item }: ScoringProps) => {
-    console.log("Enters Scoring");
-    return (
-      <>
-        <AnswerComponent
-          item={item}
-          show={show}
-          answers={answers}
-          setAnswers={setAnswers}
-        />
-        {answers.map((answer: QuestionAnswer) => {
-          console.log(answer.question, "equals", item.question);
-          {
-            answer.question === item.question &&
-              (Boolean(answer.isCorrect) ? (
-                <p>This is correct</p>
-              ) : (
-                <p>this is not correct</p>
-              ));
-          }
-        })}
-      </>
-    );
-  };
+  
   return (
     <div className=" ">
       <div className="max-w-3xl mx-auto p-4">
         <h1 className="text-4xl font-bold mb-4">Quizz: Module 1</h1>
         {data.map((item, index) => {
+
           return (
             <div key={item.question} className="p-8 border-2 mb-10">
               <div className="flex flex- wrap text-2xl font-bold pb-2">
                 <span className=" px-2">{index + 1}.</span>
                 <h2 className="">{item.question}</h2>
               </div>
+              {item.type === "description" && <p>
+                {item.description}
+              </p>}
               {show ? (
-                <Scoring item={item} />
+                <Scoring item={item} answers={answers} setAnswers={setAnswers} show={show} />
               ) : (
                 <AnswerComponent
                   item={item}
