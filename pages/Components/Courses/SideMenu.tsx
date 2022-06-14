@@ -25,7 +25,7 @@ const SideMenu = ({ data }: { data: MockData }) => {
   const modules = course.content;
 
   return (
-    <aside className="hidden lg:block  col-span-1">
+    <aside className="hidden lg:block col-span-1 sticky top-0">
       <img src={logo.src} className="h-28 my-5" />
       <ul>
         <li className="text-lg font-bold p-2 border-l-4 border-blue-600">

@@ -90,7 +90,7 @@ const AnswerComponent = ({
             )}
           >
             <input
-              className="scale-150 m-4 "
+              className="scale-150 m-4"
               type="radio"
               name={question.question}
               onClick={(e) => inputHandler(index)}
