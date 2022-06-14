@@ -34,6 +34,9 @@ const Navbar = () => {
             <a className=" p-2">Miguel Lopez</a>
           </p>
         </div>
+        <div>
+          <img/>
+        </div>
       </nav>
     </div>
   );
