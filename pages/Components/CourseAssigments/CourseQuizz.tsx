@@ -28,32 +28,40 @@ const data = [
   },
 ];
 
-type item = {
-  item: {
-    question: string;
-    possibleAnswers: {
-      answer: string;
-      correct: boolean;
-    }[];
-  };
+type QuestionItem = {
+  question: string;
+  possibleAnswers: {
+    answer: string;
+    correct: boolean;
+  }[];
 };
 
-type answer = {
+type QuestionAnswer = {
   question: string;
   isCorrect: string;
 };
 
-const QuestionAnswer = ({ show, item, answers, setAnswers }: any) => {
-  console.log(setAnswers);
+type QuestionAnswerProps = {
+  show: boolean;
+  item: QuestionItem;
+  answers: QuestionAnswer[];
+  setAnswers: (answers: QuestionAnswer[]) => void;
+};
+
+const AnswerComponent = ({
+  show,
+  item,
+  answers,
+  setAnswers,
+}: QuestionAnswerProps) => {
   const inputHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     console.log("all good here");
-    const newValues: answer = {
+    const newValues: QuestionAnswer = {
       question: e.currentTarget.name,
       isCorrect: e.currentTarget.value,
     };
     const a = answers || [];
     setAnswers([...a, newValues]);
-    console.log(newValues);
   };
   return (
     <div className="flex flex-col pl-4">
@@ -82,17 +90,25 @@ const CourseQuizz = () => {
   //Todo: Need to change this any type eventually
   const [show, setShow] = useState<boolean>(false);
 
-  const Scoring = (item: item) => {
-    const [answers, setAnswers] = useState<answer[]>([]);
-    console.log(setAnswers);
+  const [answers, setAnswers] = useState<QuestionAnswer[]>([]);
+
+  type ScoringProps = {
+    item: QuestionItem;
+  }
+  const Scoring = ({ item }: ScoringProps) => {
     console.log("Enters Scoring");
     return (
       <>
-        <QuestionAnswer show={show} answers={answers} setAnswers={setAnswers} />
-        {answers.map((answer: answer) => {
-          console.log(answer.question, "equals", item.item.question);
+        <AnswerComponent
+          item={item}
+          show={show}
+          answers={answers}
+          setAnswers={setAnswers}
+        />
+        {answers.map((answer: QuestionAnswer) => {
+          console.log(answer.question, "equals", item.question);
           {
-            answer.question === item.item.question &&
+            answer.question === item.question &&
               (Boolean(answer.isCorrect) ? (
                 <p>This is correct</p>
               ) : (
@@ -114,7 +130,16 @@ const CourseQuizz = () => {
                 <span className=" px-2">{index + 1}.</span>
                 <h2 className="">{item.question}</h2>
               </div>
-              {show ? <Scoring item={item} /> : <QuestionAnswer item={item} />}
+              {show ? (
+                <Scoring item={item} />
+              ) : (
+                <AnswerComponent
+                  item={item}
+                  show={show}
+                  answers={answers}
+                  setAnswers={setAnswers}
+                />
+              )}
             </div>
           );
         })}
