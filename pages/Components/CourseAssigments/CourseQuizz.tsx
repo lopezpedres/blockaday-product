@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useMemo } from "react";
 
-const data: Array<QuestionItem> = [
-  {
+const data: Record<string, QuestionItem> = {
+  "0": {
     question: "Question 1 ?",
     possibleAnswers: [
       { answer: "Answer 1", correct: false },
@@ -11,7 +11,7 @@ const data: Array<QuestionItem> = [
       { answer: "Answer 4", correct: true },
     ],
   },
-  {
+  "1": {
     question: "Question 2 ?",
     description: "Description of question 2",
     possibleAnswers: [
@@ -19,7 +19,7 @@ const data: Array<QuestionItem> = [
       { answer: "Answer 2", correct: false },
     ],
   },
-  {
+  "2": {
     question: "Question 3 ?",
     possibleAnswers: [
       { answer: "Answer 1", correct: true },
@@ -27,7 +27,7 @@ const data: Array<QuestionItem> = [
       { answer: "Answer 3", correct: false },
     ],
   },
-];
+};
 
 interface QuestionItem {
   question: string;
@@ -39,69 +39,85 @@ interface QuestionItem {
 }
 
 type QuestionAnswer = {
-  question: string;
-  isCorrect: string;
+  questionId: string;
+  index: number;
 };
 
 type QuestionAnswerProps = {
+  id: string;
   show: boolean;
-  question: QuestionItem;
   answers: Record<string, QuestionAnswer>;
   setAnswers: (answers: Record<string, QuestionAnswer>) => void;
 };
 
+export function classes(...classes: (string|boolean|undefined)[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
 const AnswerComponent = ({
+  id,
   show,
-  question,
   answers,
   setAnswers,
 }: QuestionAnswerProps) => {
-  const inputHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    console.log("all good here");
-    const newValues: QuestionAnswer = {
-      question: e.currentTarget.name,
-      isCorrect: e.currentTarget.value,
-    };
+  const question = data[id];
+  const answer = answers[id];
 
-    const currentIndex = data.findIndex((q) => q === question);
-    const newAnswers = { ...answers, [currentIndex]: newValues };
+  const inputHandler = (index: number) => {
+    console.log("all good here");
+
+    const newAnswer = { questionId: id, index };
+
+    const newAnswers = { ...answers, [id]: newAnswer };
     setAnswers(newAnswers);
   };
   return (
     <div className="flex flex-col pl-4">
-      {question.possibleAnswers.map((answer, index) => (
-        <label
-          key={index}
-          className={`py-2 ${
-            show && (answer.correct ? "bg-green-600" : "bg-red-600")
-          }`}
-        >
-          <input
-            className="scale-150 m-4 "
-            type="radio"
-            name={question.question}
-            onClick={(e) => inputHandler(e)}
-            value={answer.correct.toString()}
-          />
-          <span className="">{answer.answer}</span>
-        </label>
-      ))}
+      {question.possibleAnswers.map((possibleAnswer, index) => {
+        const possibleCorrect = possibleAnswer.correct;
+        const isSelected = answer?.index === index;
+        const currentCorrect = isSelected && possibleCorrect;
+
+        const colorGreen = (currentCorrect || (!currentCorrect && possibleCorrect)) && show;
+        const colorRed = !currentCorrect && show && isSelected;
+        return (
+          <label
+            key={index}
+            className={classes(
+              "py-2",
+              colorGreen && "bg-green-500",
+              colorRed && "bg-red-500",
+            )}
+          >
+            <input
+              className="scale-150 m-4 "
+              type="radio"
+              name={question.question}
+              onClick={(e) => inputHandler(index)}
+            />
+            <span className="">{possibleAnswer.answer}</span>
+          </label>
+        );
+      })}
     </div>
   );
 };
 
 const Scoring = ({
-  question,
-  answer,
+  id,
+  answers,
   show,
 }: {
-  question: QuestionItem;
-  answer: QuestionAnswer;
+  answers: Record<string, QuestionAnswer>;
   show: boolean;
+  id: string;
 }) => {
-  console.log("Enters Scoring", answer);
-  
-  if (answer.isCorrect === "true") {
+  const answer = answers[id];
+  const question = data[id];
+
+  const isCorrect = question.possibleAnswers[answer.index].correct;
+
+  if (isCorrect) {
     return <p>This is correct</p>;
   }
   return <p>this is not correct</p>;
@@ -116,29 +132,23 @@ const CourseQuizz = () => {
     <div className=" ">
       <div className="max-w-3xl mx-auto p-4">
         <h1 className="text-4xl font-bold mb-4">Quizz: Module 1</h1>
-        {data.map((question, index) => {
+        {Object.entries(data).map(([id, question]) => {
           return (
             <div key={question.question} className="p-8 border-2 mb-10">
               <div className="flex flex- wrap text-2xl font-bold pb-2">
-                <span className=" px-2">{index + 1}.</span>
+                <span className=" px-2">{parseInt(id) + 1}.</span>
                 <h2 className="">{question.question}</h2>
               </div>
               {question.description && <p>{question.description}</p>}
 
               <AnswerComponent
-                question={question}
+                id={id}
                 show={show}
                 answers={answers}
                 setAnswers={setAnswers}
               />
 
-              {answers[index] && show && (
-                <Scoring
-                  question={question}
-                  answer={answers[index]}
-                  show={show}
-                />
-              )}
+              {show && <Scoring answers={answers} id={id} show={show} />}
             </div>
           );
         })}
