@@ -23,7 +23,7 @@ const BreadCrumb = () => {
   };
 
   return (
-    <div className="sticky top-16 mt-32 bg-white">
+    <div className="lg:sticky lg:block hidden  top-16 mt-24 bg-white">
       <Breadcrumbs
         listClassName="flex flex-wrap"
         inactiveItemClassName="m-1"

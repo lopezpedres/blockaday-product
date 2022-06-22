@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import MainContent from "../../../Components/Courses/ContentMenu";
 import SideMenu from "../../../Components/Courses/SideMenu";
 import { GetServerSideProps } from "next";
@@ -31,11 +31,18 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 const moduleId = ({ data }: { data: MockData }) => {
+  const [showSideMenu, setShowSideMenu] = useState(false)
   return (
     <div>
+         <button
+         onClick={()=>setShowSideMenu(!showSideMenu)}
+        className=" lg:hidden sticky left-0 top-16 p-1  bg-blue-800 rounded-sm"
+      >
+        <p className="font-bold text-white">Modules</p>
+      </button>
       <BreadCrumb/>
       <div className=" grid grid-cols-1 lg:grid-cols-5 mx-auto">
-        <SideMenu data={data} />
+        <SideMenu data={data} showSideMenu={showSideMenu} />
         <MainContent data={data} />
       </div>
     </div>

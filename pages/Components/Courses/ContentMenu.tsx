@@ -36,7 +36,7 @@ const ContentMenu = ({data}:{data:MockData}) => {
   const module = course.content?.find((item) => item.module.toString() === moduleId)
   return (
     <div className="lg:col-span-4 col-span-5  ">
-      <div className="max-full ">
+      <div className="block max-full lg:mx-10  ">
         <div className="md:p-8 p-4 mb-4 ">
           <h1 className="text-4xl font-bold mb-4 ">{module?.title}</h1>
           <p className="text-lg">hh</p>

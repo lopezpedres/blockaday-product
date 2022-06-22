@@ -3,6 +3,11 @@ import React from "react";
 import logo from "../../../public/images/hero-header.png";
 import { useRouter } from "next/router";
 
+interface SideMenuProps {
+  data: MockData;
+  showSideMenu: boolean;
+}
+
 interface MockData {
   data: Data;
 }
@@ -19,18 +24,29 @@ interface ContentEntity {
   objectives?: string[] | null;
 }
 
-const SideMenu = ({ data }: { data: MockData }) => {
+const SideMenu = ({ data, showSideMenu }: SideMenuProps) => {
   const { data: course } = data;
   const router = useRouter();
   const modules = course.content;
 
   return (
-    <aside className="hidden lg:block col-span-1 sticky top-0">
-      <img src={logo.src} className="h-28 my-5" />
+    <aside
+      className={`${
+        showSideMenu ? "block bg-gray-200 " : "hidden"
+      } lg:block col-span-1 sticky max-h-[600px] top-24 overflow-y-auto`}
+    >
+      <img
+        src={logo.src}
+        className={`${showSideMenu ? "hidden" : "block"}  h-28 my-5`}
+      />
       <ul>
-        <li className="text-lg font-bold p-2 border-l-4 border-blue-600">
-          Summary
-        </li>
+        <Link href={`/courses/${router.query.courseSlug}`}>
+          <a>
+            <li className="text-lg font-bold p-2 border-l-4 border-blue-600">
+              Summary
+            </li>
+          </a>
+        </Link>
         {modules?.map((module) => (
           <Link
             key={module.module}
