@@ -3,7 +3,7 @@ import MainContent from "../../../Components/Courses/ContentMenu";
 import SideMenu from "../../../Components/Courses/SideMenu";
 import { GetServerSideProps } from "next";
 import fetch from "isomorphic-fetch";
-import BreadCrumb from "../../../Components/Courses/BreadCrumb";
+import BreadCrumb from "../../../Components/BreadCrumb/BreadCrumb";
 
 interface MockData {
   data: Data;
@@ -30,17 +30,17 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     },
   };
 };
-const moduleId = ({ data }: { data: MockData }) => {
-  const [showSideMenu, setShowSideMenu] = useState(false)
+const ModuleId = ({ data }: { data: MockData }) => {
+  const [showSideMenu, setShowSideMenu] = useState(false);
   return (
     <div>
-         <button
-         onClick={()=>setShowSideMenu(!showSideMenu)}
+      <button
+        onClick={() => setShowSideMenu(!showSideMenu)}
         className=" lg:hidden sticky left-0 top-16 p-1  bg-blue-800 rounded-sm"
       >
         <p className="font-bold text-white">Modules</p>
       </button>
-      <BreadCrumb/>
+      <BreadCrumb />
       <div className=" grid grid-cols-1 lg:grid-cols-5 mx-auto">
         <SideMenu data={data} showSideMenu={showSideMenu} />
         <MainContent data={data} />
@@ -49,4 +49,4 @@ const moduleId = ({ data }: { data: MockData }) => {
   );
 };
 
-export default moduleId;
+export default ModuleId;

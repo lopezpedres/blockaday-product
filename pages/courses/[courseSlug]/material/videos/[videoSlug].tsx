@@ -1,6 +1,6 @@
 import React from 'react'
 import CourseVideo from '../../../../Components/CourseAssigments/CourseVideo'
-import BreadCrumb from '../../../../Components/Courses/BreadCrumb'
+import BreadCrumb from '../../../../Components/BreadCrumb/BreadCrumb'
 import SideMenu from '../../../../Components/Courses/SideMenu'
 
 const videoSlug = () => {
