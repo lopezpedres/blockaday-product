@@ -1,7 +1,7 @@
 import React from "react";
 import CourseArticle from "../../../../Components/CourseAssigments/CourseArticle";
 import SideMenu from "../../../../Components/Courses/SideMenu";
-import BreadCrumb from "../../../../Components/Courses/BreadCrumb";
+import BreadCrumb from "../../../../Components/BreadCrumb/BreadCrumb";
 const index = () => {
   return (
     <div>
